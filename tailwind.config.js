@@ -10,10 +10,14 @@ module.exports = {
       dark: "#292929",
       darker: "#1d1d1d",
       darkest: "#121212",
+
       text: "#dddddd",
       gray: "#888888",
       blue: "#03dac6",
       purple: "#c38fff",
+
+      green: "#27FF36",
+      red: "#FF2F2F"
     },
   },
   plugins: [],

@@ -11,6 +11,8 @@ export default {
 
 <template>
   <div class="w-full h-full bg-darkest p-5">
-    <CoinTable />
+    <main class="flex justify-center">
+      <CoinTable />
+    </main>
   </div>
 </template>
