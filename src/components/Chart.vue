@@ -5,6 +5,7 @@
 <script>
 import Chart from "chart.js/auto";
 import { watch } from "vue";
+import { Filler } from "chart.js";
 
 export default {
   name: "Chart",
@@ -16,13 +17,18 @@ export default {
     watch(
       () => data.length === 5,
       () => {
-        console.log(data);
         const ctx = document.getElementById(["myChart" + index]);
+        const chart = ctx.getContext("2d");
 
-        new Chart(ctx, {
+        const gradient = chart.createLinearGradient(0, 0, 0, 300);
+
+        //////// TODO: ORGANIZAR ISSO EM FUNÇÃO
+        gradient.addColorStop(0, data[0].price_change_percentage_24h > 0 ? "#27FF3670" : "#ff2f2f70");
+        gradient.addColorStop(0.8, "transparent");
+
+        new Chart(chart, {
           type: "line",
           data: {
-
             ////////// TODO: ORGANIZAR ISSO EM FUNÇÃO
             labels: data[0].prices.map((item, index) => {
               return !(new Date(item[0]).getDate() % 5)
@@ -39,18 +45,21 @@ export default {
                 data: data[index].prices.map((item, index) => {
                   return item[1];
                 }),
-                backgroundColor: "#ffffff50",
-                borderColor: "white",
+                backgroundColor: gradient,
+                borderColor: "#e52c2c",
                 borderWidth: 1,
+                pointRadius: 4,
+                fill: true,
               },
             ],
           },
           options: {
+            plugins: Filler,
             scales: {
               x: {
                 grid: {
                   color: "#ffffff10",
-                  borderColor: "red",
+                  borderColor: data[0].price_change_percentage_24h > 0 ? "#27FF36" : "#ff2f2f",
                 },
                 ticks: {
                   autoSkip: false,
@@ -61,7 +70,7 @@ export default {
               y: {
                 grid: {
                   color: "#ffffff10",
-                  borderColor: "green",
+                  borderColor: data[0].price_change_percentage_24h > 0 ? "#27FF36" : "#ff2f2f",
                 },
               },
             },

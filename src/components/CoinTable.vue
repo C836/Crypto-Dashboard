@@ -73,11 +73,14 @@ export default {
           <img
             class="inline mr-2 w-4"
             :src="
+
+            /////// TODO: FUNÇÃO PARA DETECTAR POSITIVO 
               item[0].price_change_percentage_24h > 0 ? arrows[1] : arrows[2]
             "
           />
           <p
             :class="
+            /////// TODO: FUNÇÃO PARA DETECTAR POSITIVO 
               item[0].price_change_percentage_24h > 0
                 ? 'text-green'
                 : 'text-red'
