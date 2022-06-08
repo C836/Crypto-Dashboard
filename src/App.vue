@@ -1,16 +1,17 @@
 <script>
 import CoinTable from "./components/CoinTable.vue";
+import Acordion from "./components/Details.vue";
 
 export default {
   name: "App",
   components: {
-    CoinTable,
-  },
+    CoinTable
+},
 };
 </script>
 
 <template>
-  <div class="w-full h-full bg-darkest p-5">
+  <div class="w-full h-full p-5">
     <main class="flex justify-center">
       <CoinTable />
     </main>

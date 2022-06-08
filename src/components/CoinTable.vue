@@ -1,13 +1,20 @@
 <script>
 import arrowup from "./../assets/arrowup.svg";
 import arrowdown from "./../assets/arrowdown.svg";
+import arrowSlider from "./../assets/arrowSlider.svg";
+
+import Details from "./Details.vue";
 
 export default {
+  components: {
+    Details,
+  },
   data() {
     return {
       info: "null",
       data: [],
-      arrows: [arrowup, arrowdown],
+      details: [],
+      arrows: [arrowSlider, arrowup, arrowdown],
     };
   },
   created() {
@@ -17,7 +24,15 @@ export default {
         `https://api.coingecko.com/api/v3/coins/markets?vs_currency=brl&ids=${coins}&order=market_cap_desc&per_page=100&page=1&sparkline=false`
       )
         .then((response) => response.json())
-        .then((data) => this.data.push(data));
+        .then((response) => this.data.push(response));
+    });
+
+    coins.map((coins) => {
+      fetch(
+        `https://api.coingecko.com/api/v3/coins/${coins}/market_chart?vs_currency=brl&days=30&interval=daily`
+      )
+        .then((response) => response.json())
+        .then((response) => this.details.push(response));
     });
   },
 };
@@ -37,9 +52,9 @@ export default {
       </tr>
     </thead>
     <tbody v-for="(item, index) in data" class="bg-darker border-separate">
-      <tr class="bg-dark border-8 rounded border-darker">
+      <tr class="bg-dark border-8 border-darker relative">
         <td class="w-20 text-center text-xl font-medium">
-          {{index + 1}}
+          {{ index + 1 }}
         </td>
 
         <td class="flex p-2">
@@ -58,7 +73,7 @@ export default {
           <img
             class="inline mr-2 w-4"
             :src="
-              item[0].price_change_percentage_24h > 0 ? arrows[0] : arrows[1]
+              item[0].price_change_percentage_24h > 0 ? arrows[1] : arrows[2]
             "
           />
           <p
@@ -72,9 +87,24 @@ export default {
             {{ item[0].price_change_percentage_24h.toFixed(2) }}
           </p>
         </td>
+        <td class="w-5">
+          <button
+            class="collapsed relative flex items-center w-full h-full pr-5 text-base text-gray-800 text-left rounded-none transition"
+            type="button"
+            data-bs-toggle="collapse"
+            :data-bs-target="'#collapse' + (index + 1)"
+            aria-expanded="false"
+            :aria-controls="'collapse' + (index + 1)"
+          >
+            <figure class="w-6">
+              <img class="w-full" :src="arrows[0]" />
+            </figure>
+          </button>
+        </td>
       </tr>
+      <td class="relative" colspan="10">
+        <Details :data="details" :index="index" />
+      </td>
     </tbody>
   </table>
 </template>
-
-<style></style>

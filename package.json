@@ -8,7 +8,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.2.25"
+    "@syncfusion/ej2-base": "^20.1.57",
+    "@syncfusion/ej2-vue-charts": "^20.1.57",
+    "chart.js": "^3.8.0",
+    "tw-elements": "^1.0.0-alpha12",
+    "vue": "^3.2.25",
+    "vue-chartjs": "^4.1.1",
+    "vue-chartkick": "^1.1.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.3",
