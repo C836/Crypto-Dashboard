@@ -9,13 +9,12 @@ import { Filler } from "chart.js";
 
 export default {
   name: "Chart",
-  props: ["index", "data"],
+  props: ["index", "data", "dailyData"],
   setup(props) {
-    const data = props.data;
-    const index = props.index;
+    const { index, data, dailyData } = props;
 
     watch(
-      () => data.length === 5,
+      () => data.length === 5 && dailyData.length ===5,
       () => {
         const ctx = document.getElementById(["myChart" + index]);
         const chart = ctx.getContext("2d");
@@ -23,7 +22,10 @@ export default {
         const gradient = chart.createLinearGradient(0, 0, 0, 300);
 
         //////// TODO: ORGANIZAR ISSO EM FUNÇÃO
-        gradient.addColorStop(0, data[0].price_change_percentage_24h > 0 ? "#27FF3670" : "#ff2f2f70");
+        gradient.addColorStop(
+          0,
+          dailyData[index][0].price_change_percentage_24h > 0 ? "#27FF3670" : "#ff2f2f70"
+        );
         gradient.addColorStop(0.8, "transparent");
 
         new Chart(chart, {
@@ -46,7 +48,7 @@ export default {
                   return item[1];
                 }),
                 backgroundColor: gradient,
-                borderColor: "#e52c2c",
+                borderColor: dailyData[index][0].price_change_percentage_24h > 0 ? "#27FF36" : "#ff2f2f",
                 borderWidth: 1,
                 pointRadius: 4,
                 fill: true,
@@ -59,7 +61,10 @@ export default {
               x: {
                 grid: {
                   color: "#ffffff10",
-                  borderColor: data[0].price_change_percentage_24h > 0 ? "#27FF36" : "#ff2f2f",
+                  borderColor:
+                    dailyData[index][0].price_change_percentage_24h > 0
+                      ? "#27FF36"
+                      : "#ff2f2f",
                 },
                 ticks: {
                   autoSkip: false,
@@ -70,7 +75,10 @@ export default {
               y: {
                 grid: {
                   color: "#ffffff10",
-                  borderColor: data[0].price_change_percentage_24h > 0 ? "#27FF36" : "#ff2f2f",
+                  borderColor:
+                    dailyData[index][0].price_change_percentage_24h > 0
+                      ? "#27FF36"
+                      : "#ff2f2f",
                 },
               },
             },
