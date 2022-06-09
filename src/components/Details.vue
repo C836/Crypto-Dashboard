@@ -2,10 +2,21 @@
 import "tw-elements";
 import Chart from "./Chart.vue";
 import History from "./History.vue";
+import Date from "./Date.vue";
 
 export default {
+  data() {
+    return {
+      value: "",
+    };
+  },
   props: ["index", "data", "dailyData"],
-  components: { Chart, History },
+  components: { Chart, History, Date },
+  methods: {
+    handleChange(input) {
+      this.value = input;
+    },
+  },
 };
 </script>
 
@@ -19,7 +30,8 @@ export default {
         data-bs-parent="#accordionExample"
       >
         <fieldset>
-          <input type="date" />
+          <Date v-on:inputChange="handleChange" />
+          <p>{{value}}</p>
         </fieldset>
         <Chart :index="index" :dailyData="dailyData" :data="data" />
         <History />

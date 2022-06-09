@@ -1,52 +1,71 @@
 <script>
+const todayUnix = Math.floor((new Date()).getTime() / 1000)
+
+const filterMonth = (items) => {
+  return (items.filter((x, index) => index % 24 === 0))
+}
+
 export default {
   data() {
     return {
-      history: [],
+      history: {prices: [], market_caps: []}
     };
   },
   created() {
+    
     fetch(
-      `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart/range?vs_currency=brl&from=1654779772&to=1654789772`
+      `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart/range?vs_currency=brl&from=${todayUnix-2678400}&to=${todayUnix}`
     )
       .then((response) => response.json())
       .then((response) => {
-        this.history.push(response), console.log(response);
+        this.history.prices = ((filterMonth(response.prices)).reverse()),
+        this.history.market_caps = (filterMonth(response.market_caps).reverse())
       });
   },
 };
 </script>
 
 <template>
-  <section v-if="history.length">
-    <table class="text-left w-full h-auto max-w-5xl text-text bg-darker">
+  <section v-if="history.prices.length">
+    <table class="text-left max-w-5xl w-full h-auto mt-10  text-text bg-darker">
       <thead>
-        <tr class="border-8 border-darker text-sm">
-          <th class="text-right">Cap. Mercado</th>
+        <tr class="text-sm">
+          <th class="text-center">Data</th>
+          <th class="">Cap. Mercado</th>
 
-          <th class="text-right">Preço</th>
+          <th class="">Preço</th>
 
-          <th class="pl-10">24H</th>
+          <th class="">24H</th>
+
+          <th class="">% 24H</th>
         </tr>
       </thead>
-      <tbody v-for="index in 30" class="bg-darker border-separate">
-        <tr>
-          <td class="w-18 text-center text-xl font-medium">
-            <p>R$ {{ history[0].market_caps[index][1].toFixed(4) }}</p>
-          </td>
-          <td class="w-18 text-center text-xl font-medium">
-            <p>R$ {{ history[0].prices[index][1].toFixed(4) }}</p>
+      <tbody v-for="index in 30" class="bg-darker text-lg">
+        <tr class="bg-dark border-2 border-y-4 border-darker relative h-14">
+          <td class="text-center text-base w-20">
+            <!-- TODO: FORMATAR EM FUNÇÃO DATA -->
+
+            <p>{{ new Date(history.prices[index][0]).getDate() }}/{{ new Date(history.prices[index][0]).getMonth() }}</p>
           </td>
 
-          <td class="w-18 text-center text-xl font-medium">
-            <p>
-              R$ {{ (history[0].prices[index][1] - history[0].prices[index - 1][1]).toFixed(2) }}
+          <td>
+            <p>R$ {{ history.market_caps[index][0].toFixed(4) }}</p>
+          </td>
+
+          <td class="">
+            <p>R$ {{ history.prices[index][1].toFixed(4) }}</p>
+          </td>
+
+          <td class="">
+            <p v-if="index<30">
+              R$ {{ (history.prices[index][1] - history.prices[index + 1][1]).toFixed(2) }}
             </p>
           </td>
           
-          <td class="w-18 text-center text-xl font-medium">
-            <p>
-              {{ (((history[0].prices[index][1] - history[0].prices[index - 1][1]) / history[0].prices[index][1]) * 100).toFixed(2) }}%
+          <td class="">
+            <!-- TODO: FORMATAR EM FUNÇÃO -->
+            <p v-if="index<30">
+              {{ (((history.prices[index][1] - history.prices[index + 1][1]) / history.prices[index][1]) * 100).toFixed(2) }}
             </p>
           </td>
         </tr>
