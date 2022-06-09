@@ -39,21 +39,23 @@ export default {
 </script>
 
 <template>
-  <table class="text-left w-full h-auto max-w-3xl text-text bg-darker">
+  <table class="text-left w-full h-auto max-w-5xl text-text bg-darker">
     <thead>
       <tr class="border-8 border-darker text-sm">
         <th class="text-center">Rank</th>
 
         <th class="pl-3">Nome</th>
 
+        <th class="text-right">Cap. Mercado</th>
+
         <th class="text-right">Preço</th>
 
-        <th class="pl-20">% 24H</th>
+        <th class="pl-10">% 24H</th>
       </tr>
     </thead>
     <tbody v-for="(item, index) in data" class="bg-darker border-separate">
       <tr class="bg-dark border-8 border-darker relative">
-        <td class="w-20 text-center text-xl font-medium">
+        <td class="w-18 text-center text-xl font-medium">
           {{ index + 1 }}
         </td>
 
@@ -67,20 +69,21 @@ export default {
           </div>
         </td>
 
+        <td class="text-right">R$ {{ item[0].market_cap }}</td>
+
         <td class="text-right">R$ {{ item[0].current_price }}</td>
 
-        <td class="pl-20">
+        <td class="pl-10">
           <img
             class="inline mr-2 w-4"
             :src="
-
-            /////// TODO: FUNÇÃO PARA DETECTAR POSITIVO 
+              /////// TODO: FUNÇÃO PARA DETECTAR POSITIVO
               item[0].price_change_percentage_24h > 0 ? arrows[1] : arrows[2]
             "
           />
           <p
             :class="
-            /////// TODO: FUNÇÃO PARA DETECTAR POSITIVO 
+              /////// TODO: FUNÇÃO PARA DETECTAR POSITIVO
               item[0].price_change_percentage_24h > 0
                 ? 'text-green'
                 : 'text-red'
@@ -90,6 +93,7 @@ export default {
             {{ item[0].price_change_percentage_24h.toFixed(2) }}
           </p>
         </td>
+
         <td class="w-5">
           <button
             class="collapsed relative flex items-center w-full h-full pr-5 text-base text-gray-800 text-left rounded-none transition"
@@ -106,7 +110,7 @@ export default {
         </td>
       </tr>
       <td class="relative" colspan="10">
-        <Details :data="details" :index="index" />
+        <Details :dailyData="data" :data="details" :index="index" />
       </td>
     </tbody>
   </table>

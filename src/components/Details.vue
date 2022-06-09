@@ -1,10 +1,11 @@
 <script>
 import "tw-elements";
 import Chart from "./Chart.vue";
+import History from "./History.vue";
 
 export default {
-  props: ["index", "data"],
-  components: { Chart }
+  props: ["index", "data", "dailyData"],
+  components: { Chart, History },
 };
 </script>
 
@@ -17,7 +18,11 @@ export default {
         :aria-labelledby="'heading' + (index + 1)"
         data-bs-parent="#accordionExample"
       >
-        <Chart :index="index" :data="data" />
+        <fieldset>
+          <input type="date" />
+        </fieldset>
+        <Chart :index="index" :dailyData="dailyData" :data="data" />
+        <History />
       </div>
     </div>
   </div>
