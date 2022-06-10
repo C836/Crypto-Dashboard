@@ -8,7 +8,7 @@ const filterMonth = (items) => {
 };
 
 export default {
-  props: ["index", "input"],
+  props: ["coin","index", "input"],
 
   data() {
     return {
@@ -24,10 +24,9 @@ export default {
       deep: true,
       handler(date) {
         fetch(
-          `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart/range?vs_currency=brl&from=${
+          `https://api.coingecko.com/api/v3/coins/${this.coin}/market_chart/range?vs_currency=brl&from=${
             moment(date).unix() - monthUnix
-          }&to=${moment(date).unix()}`
-        )
+          }&to=${moment(date).unix()}`)
           .then((response) => response.json())
           .then((response) => {
             (this.history.prices = filterMonth(response.prices).reverse()),
@@ -80,7 +79,7 @@ export default {
           <td>
             <p
               v-if="index < 30"
-              :class="
+              :class=" 
                 history.prices[index][1] - history.prices[index + 1][1] > 0
                   ? 'text-green'
                   : 'text-red'

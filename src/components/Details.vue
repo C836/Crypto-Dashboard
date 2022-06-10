@@ -7,7 +7,7 @@ import moment from "moment";
 const defaultDate = new window.Date().getTime();
 
 export default {
-  props: ["index", "data", "dailyData"],
+  props: ["coin", "index", "data", "dailyData"],
   data() {
     return {
       date: defaultDate,
@@ -36,7 +36,7 @@ export default {
           <Date v-on:inputChange="handleChange" />
         </fieldset>
         
-        <History :index="index" :input="date" />
+        <History :coin="coin" :index="index" :input="date" />
       </div>
     </div>
   </div>
