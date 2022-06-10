@@ -46,7 +46,7 @@ export default {
     <table class="text-left text-text max-w-5xl w-full h-auto mt-10 text-sm md:text-base bg-darker">
       <thead>
         <tr class="text-sm">
-          <th class="hidden sm:table-cell text-center">Data</th>
+          <th class="text-center">Data</th>
           <th class="hidden sm:table-cell pl-3">Cap. Mercado</th>
 
           <th class="pl-2">Preço</th>
@@ -61,7 +61,7 @@ export default {
           class="border-2 border-y-8 border-darker relative h-14"
           :class="index % 2 ? 'bg-dark' : 'bg-light'"
         >
-          <td class="hidden sm:table-cell text-center w-25">
+          <td class="text-center w-25">
             <p>
               {{
                 moment(history.prices[index][0]).add(1, "days").format("DD/MM")
@@ -74,7 +74,7 @@ export default {
           </td>
 
           <td class="pl-2">
-            <p>R$ {{ history.prices[index][1].toFixed(4) }}</p>
+            <p>R$ {{ history.prices[index][1].toFixed(2) }}</p>
           </td>
 
           <td>
