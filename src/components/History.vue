@@ -32,7 +32,7 @@ export default {
         )
           .then((response) => response.json())
           .then((response) => {
-              (this.history.prices = filterMonth(response.prices).reverse()),
+            (this.history.prices = filterMonth(response.prices).reverse()),
               (this.history.market_caps = filterMonth(
                 response.market_caps
               ).reverse());

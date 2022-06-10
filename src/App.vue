@@ -5,8 +5,8 @@ import Acordion from "./components/Details.vue";
 export default {
   name: "App",
   components: {
-    CoinTable
-},
+    CoinTable,
+  },
 };
 </script>
 

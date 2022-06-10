@@ -63,9 +63,7 @@ export default {
           <img :src="item[0].image" class="h-12 p-1 mr-2" />
           <div class="h-12">
             <p>{{ item[0].name }}</p>
-            <small class="opacity-60">{{
-              item[0].symbol.toUpperCase()
-            }}</small>
+            <small class="opacity-60">{{ item[0].symbol.toUpperCase() }}</small>
           </div>
         </td>
 

@@ -5,7 +5,7 @@ import History from "./History.vue";
 import Date from "./Date.vue";
 import moment from "moment";
 
-const defaultDate = new window.Date().getTime()
+const defaultDate = new window.Date().getTime();
 
 export default {
   data() {
