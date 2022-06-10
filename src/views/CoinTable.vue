@@ -12,16 +12,16 @@ export default {
   data() {
     return {
       info: "null",
-      data: [],
       coins: ["bitcoin", "dacxi", "ethereum", "cosmos", "terra-luna-2"],
       details: [],
+      data: [],
       arrows: [arrowSlider, arrowup, arrowdown],
     };
   },
 
   methods: {
     getApi: function () {
-      this.data.length = 0
+      this.data.length = 0;
       this.coins.map((coin) => {
         fetch(
           `https://api.coingecko.com/api/v3/coins/markets?vs_currency=brl&ids=${coin}&order=market_cap_desc&per_page=100&page=1&sparkline=false`
@@ -36,8 +36,8 @@ export default {
     this.getApi();
 
     setInterval(() => {
-      console.log('foi')
-      this.getApi()
+      console.log("foi");
+      this.getApi();
     }, 30000);
   },
 };
@@ -113,7 +113,12 @@ export default {
         </td>
       </tr>
       <td class="relative" colspan="10">
-        <Details :coin="coins[index]" :dailyData="data" :data="details" :index="index" />
+        <Details
+          :coin="coins[index]"
+          :dailyData="data"
+          :data="details"
+          :index="index"
+        />
       </td>
     </tbody>
   </table>

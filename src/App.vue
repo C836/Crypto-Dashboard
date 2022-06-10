@@ -7,6 +7,27 @@ export default {
   components: {
     CoinTable,
   },
+
+  data() {
+    return {
+      timerCount: 30,
+    };
+  },
+
+  watch: {
+    timerCount: {
+      handler(value) {
+        if (value > 0) {
+          setTimeout(() => {
+            this.timerCount--;
+          }, 1000);
+        } else {
+          this.timerCount = 30;
+        }
+      },
+      immediate: true,
+    },
+  },
 };
 </script>
 
@@ -19,6 +40,7 @@ export default {
       </div>
 
       <CoinTable />
+      <p class="text-text mt-5">Prox. Atualização: {{ timerCount }}s</p>
     </main>
   </div>
 </template>
