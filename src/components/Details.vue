@@ -17,7 +17,6 @@ export default {
   components: { Chart, History, Date },
   methods: {
     handleChange(input) {
-      console.log(input)
       this.date = moment(input, "YYYY-MM-DD").add(1, "days");
     },
   },
