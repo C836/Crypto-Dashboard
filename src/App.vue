@@ -11,7 +11,7 @@ export default {
 </script>
 
 <template>
-  <div class="w-full h-full p-5">
+  <div class="w-full h-full p-2">
     <main class="flex flex-col items-center">
       <CoinTable />
     </main>

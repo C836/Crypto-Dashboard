@@ -42,24 +42,24 @@ export default {
   <table class="text-left w-full h-auto max-w-5xl text-text bg-darker">
     <thead>
       <tr class="border-8 border-darker text-sm">
-        <th class="text-center">Rank</th>
+        <th class="sm:table-cell hidden text-center">Rank</th>
 
         <th class="pl-3">Nome</th>
 
-        <th class="text-right">Cap. Mercado</th>
+        <th class="sm:table-cell hidden text-right">Cap. Mercado</th>
 
         <th class="text-right">Preço</th>
 
-        <th class="pl-10">% 24H</th>
+        <th class="sm:pl-16 pl-6">% 24H</th>
       </tr>
     </thead>
     <tbody v-for="(item, index) in data" class="bg-darker border-separate">
-      <tr class="bg-dark border-8 border-darker relative">
-        <td class="w-18 text-center text-xl font-medium">
+      <tr class="bg-dark border-8 border-darker text-sm md:text-base relative">
+        <td class="sm:table-cell hidden w-18 text-center text-xl">
           {{ index + 1 }}
         </td>
 
-        <td class="flex p-2">
+        <td class="flex row-span-full col-span-full p-2">
           <img :src="item[0].image" class="h-12 p-1 mr-2" />
           <div class="h-12">
             <p>{{ item[0].name }}</p>
@@ -67,21 +67,19 @@ export default {
           </div>
         </td>
 
-        <td class="text-right">R$ {{ item[0].market_cap }}</td>
+        <td class="sm:table-cell hidden text-right">R$ {{ item[0].market_cap }}</td>
 
         <td class="text-right">R$ {{ item[0].current_price }}</td>
 
-        <td class="pl-10">
+        <td class="sm:pl-16 pl-6">
           <img
             class="inline mr-2 w-4"
             :src="
-              /////// TODO: FUNÇÃO PARA DETECTAR POSITIVO
               item[0].price_change_percentage_24h > 0 ? arrows[1] : arrows[2]
             "
           />
           <p
             :class="
-              /////// TODO: FUNÇÃO PARA DETECTAR POSITIVO
               item[0].price_change_percentage_24h > 0
                 ? 'text-green'
                 : 'text-red'
@@ -92,16 +90,16 @@ export default {
           </p>
         </td>
 
-        <td class="w-5">
+        <td>
           <button
-            class="collapsed relative flex items-center w-full h-full pr-5 text-base text-gray-800 text-left rounded-none transition"
+            class="collapsed relative flex items-center w-full h-full pl-2 pr-5 text-base text-gray-800 text-left rounded-none transition"
             type="button"
             data-bs-toggle="collapse"
             :data-bs-target="'#collapse' + (index + 1)"
             aria-expanded="false"
             :aria-controls="'collapse' + (index + 1)"
           >
-            <figure class="w-6">
+            <figure class="sm:w-5 w-3">
               <img class="w-full" :src="arrows[0]" />
             </figure>
           </button>
