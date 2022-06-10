@@ -1,5 +1,5 @@
 <template>
-  <canvas :id="'myChart'" width="400" height="100"></canvas>
+  <canvas :id="'myChart' + this.index" width="400" height="100"></canvas>
 </template>
 
 <script>
@@ -8,7 +8,7 @@ import moment from "moment";
 
 export default {
   name: "Chart",
-  props: ["history"],
+  props: ["index", "history"],
 
   watch: {
     history: {
@@ -19,7 +19,7 @@ export default {
           return list[30][1] > list[0][1] ? true : false;
         };
 
-        const ctx = document.getElementById(["myChart"]);
+        const ctx = document.getElementById(["myChart" + this.index]);
         const chart = ctx.getContext("2d");
 
         const gradient = chart.createLinearGradient(0, 0, 0, 300);

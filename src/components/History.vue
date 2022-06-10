@@ -9,7 +9,7 @@ const filterMonth = (items) => {
 };
 
 export default {
-  props: ["input"],
+  props: ["index", "input"],
   components: { Chart },
 
   data() {
@@ -45,7 +45,7 @@ export default {
 
 <template>
   <section v-if="history.prices.length">
-    <Chart :history="history.prices" />
+    <Chart :index="index" :history="history.prices" />
     <table class="text-left max-w-5xl w-full h-auto mt-10 text-text bg-darker">
       <thead>
         <tr class="text-sm">
