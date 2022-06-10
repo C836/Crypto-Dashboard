@@ -1,5 +1,6 @@
 <script>
-import moment from "moment"
+import moment from "moment";
+import Chart from "./Chart.vue";
 
 const monthUnix = 2678400;
 
@@ -9,6 +10,7 @@ const filterMonth = (items) => {
 
 export default {
   props: ["input"],
+  components: { Chart },
 
   data() {
     return {
@@ -23,7 +25,6 @@ export default {
       immediate: true,
       deep: true,
       handler(date) {
-
         fetch(
           `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart/range?vs_currency=brl&from=${
             moment(date).unix() - monthUnix
@@ -31,8 +32,7 @@ export default {
         )
           .then((response) => response.json())
           .then((response) => {
-            console.log(response.prices[0]),
-            (this.history.prices = filterMonth(response.prices).reverse()),
+              (this.history.prices = filterMonth(response.prices).reverse()),
               (this.history.market_caps = filterMonth(
                 response.market_caps
               ).reverse());
@@ -45,6 +45,7 @@ export default {
 
 <template>
   <section v-if="history.prices.length">
+    <Chart :history="history.prices" />
     <table class="text-left max-w-5xl w-full h-auto mt-10 text-text bg-darker">
       <thead>
         <tr class="text-sm">
@@ -64,7 +65,9 @@ export default {
             <!-- TODO: FORMATAR EM FUNÇÃO DATA -->
 
             <p>
-              {{moment(history.prices[index][0]).add(1, 'days').format("DD/MM") }}
+              {{
+                moment(history.prices[index][0]).add(1, "days").format("DD/MM")
+              }}
             </p>
           </td>
 

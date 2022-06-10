@@ -1,92 +1,99 @@
 <template>
-  <canvas :id="'myChart' + index" width="400" height="100"></canvas>
+  <canvas :id="'myChart'" width="400" height="100"></canvas>
 </template>
 
 <script>
 import Chart from "chart.js/auto";
+import moment from "moment";
 import { watch } from "vue";
 import { Filler } from "chart.js";
 
 export default {
   name: "Chart",
-  props: ["date", "index", "data", "dailyData"],
-  setup(props) {
-    const { index, data, dailyData } = props;
+  props: ["history"],
 
-    watch(
-      () => data.length === 5 && dailyData.length ===5,
-      () => {
-        const ctx = document.getElementById(["myChart" + index]);
+  data() {
+    return {
+      history: this.history
+    };
+  },
+  
+
+    watch: {
+      history: {
+      handler(history) {
+        const ctx = document.getElementById(["myChart"]);
         const chart = ctx.getContext("2d");
 
-        const gradient = chart.createLinearGradient(0, 0, 0, 300);
+        //const gradient = chart.createLinearGradient(0, 0, 0, 300);
 
         //////// TODO: ORGANIZAR ISSO EM FUNÇÃO
-        gradient.addColorStop(
-          0,
-          dailyData[index][0].price_change_percentage_24h > 0 ? "#27FF3670" : "#ff2f2f70"
-        );
-        gradient.addColorStop(0.8, "transparent");
+        
+        //gradient.addColorStop("#27FF3670");
+        //gradient.addColorStop(0.8, "transparent");
 
         new Chart(chart, {
           type: "line",
-          data: {
+          data: { labels : history.map((item) => { return moment(item[0]).format("DD/MM"); }),
             ////////// TODO: ORGANIZAR ISSO EM FUNÇÃO
-            labels: data[0].prices.map((item, index) => {
-              return !(new Date(item[0]).getDate() % 5)
-                ? `
-          ${new Date(item[0]).getDate()}/${new Date(item[0]).getMonth() + 1}`
-                : "";
-            }),
+          //   labels: history.map((item, index) => {
+          //     return !(new Date(item[0]).getDate() % 5)
+          //       ? `
+          // ${new Date(item[0]).getDate()}/${new Date(item[0]).getMonth() + 1}`
+          //       : "";
+          //   }),
 
             //////////
 
             datasets: [
               {
                 label: ["Preço"],
-                data: data[index].prices.map((item, index) => {
-                  return item[1];
-                }),
-                backgroundColor: gradient,
-                borderColor: dailyData[index][0].price_change_percentage_24h > 0 ? "#27FF36" : "#ff2f2f",
+                data: history.map((item) => { return (item[1]) }),
+                // data: data[index].prices.map((item, index) => {
+                //   return item[1];
+                // }),
+                backgroundColor: "red",
+                //borderColor: dailyData[index][0].price_change_percentage_24h > 0 ? "#27FF36" : "#ff2f2f",
                 borderWidth: 1,
                 pointRadius: 4,
                 fill: true,
               },
             ],
           },
-          options: {
-            plugins: Filler,
-            scales: {
-              x: {
-                grid: {
-                  color: "#ffffff10",
-                  borderColor:
-                    dailyData[index][0].price_change_percentage_24h > 0
-                      ? "#27FF36"
-                      : "#ff2f2f",
-                },
-                ticks: {
-                  autoSkip: false,
-                  maxRotation: 360,
-                  minRotation: 360,
-                },
-              },
-              y: {
-                grid: {
-                  color: "#ffffff10",
-                  borderColor:
-                    dailyData[index][0].price_change_percentage_24h > 0
-                      ? "#27FF36"
-                      : "#ff2f2f",
-                },
-              },
-            },
-          },
-        });
+          // options: {
+          //   plugins: Filler,
+          //   scales: {
+          //     x: {
+          //       grid: {
+          //         color: "#ffffff10",
+          //         borderColor:
+          //           dailyData[index][0].price_change_percentage_24h > 0
+          //             ? "#27FF36"
+          //             : "#ff2f2f",
+          //       },
+          //       ticks: {
+          //         autoSkip: false,
+          //         maxRotation: 360,
+          //         minRotation: 360,
+          //       },
+          //     },
+          //     y: {
+          //       grid: {
+          //         color: "#ffffff10",
+          //         borderColor:
+          //           dailyData[index][0].price_change_percentage_24h > 0
+          //             ? "#27FF36"
+          //             : "#ff2f2f",
+          //       },
+          //     },
+          //   },
+          // },
+        })
       }
-    );
-  },
+      }
+    
+    
+  
   //new Date(1653436800000).toLocaleString().split(' ')
   //   mounted() {
   //     const ctx = document.getElementById(["myChart" + this.index]);
@@ -131,5 +138,6 @@ export default {
 
   //     myChart;
   //   },
-};
+}
+    }
 </script>

@@ -36,12 +36,6 @@ export default {
         <fieldset>
           <Date v-on:inputChange="handleChange" />
         </fieldset>
-        <Chart
-          :input="date"
-          :index="index"
-          :dailyData="dailyData"
-          :data="data"
-        />
         <History :input="date" />
       </div>
     </div>
