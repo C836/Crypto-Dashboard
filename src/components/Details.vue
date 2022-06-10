@@ -3,18 +3,22 @@ import "tw-elements";
 import Chart from "./Chart.vue";
 import History from "./History.vue";
 import Date from "./Date.vue";
+import moment from "moment";
+
+const defaultDate = new window.Date().getTime()
 
 export default {
   data() {
     return {
-      value: "",
+      date: defaultDate,
     };
   },
   props: ["index", "data", "dailyData"],
   components: { Chart, History, Date },
   methods: {
     handleChange(input) {
-      this.value = input;
+      console.log(input)
+      this.date = moment(input, "YYYY-MM-DD").add(1, "days");
     },
   },
 };
@@ -31,10 +35,14 @@ export default {
       >
         <fieldset>
           <Date v-on:inputChange="handleChange" />
-          <p>{{value}}</p>
         </fieldset>
-        <Chart :index="index" :dailyData="dailyData" :data="data" />
-        <History />
+        <Chart
+          :input="date"
+          :index="index"
+          :dailyData="dailyData"
+          :data="data"
+        />
+        <History :input="date" />
       </div>
     </div>
   </div>
