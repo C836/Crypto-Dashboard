@@ -26,14 +26,6 @@ export default {
         .then((response) => response.json())
         .then((response) => this.data.push(response));
     });
-
-    coins.map((coins) => {
-      fetch(
-        `https://api.coingecko.com/api/v3/coins/${coins}/market_chart?vs_currency=brl&days=30&interval=daily`
-      )
-        .then((response) => response.json())
-        .then((response) => this.details.push(response));
-    });
   },
 };
 </script>
