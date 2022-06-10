@@ -1,6 +1,5 @@
 <script>
 import "tw-elements";
-import Chart from "./Chart.vue";
 import History from "./History.vue";
 import Date from "./Date.vue";
 import moment from "moment";
@@ -15,7 +14,7 @@ export default {
     };
   },
 
-  components: { Chart, History, Date },
+  components: { History, Date },
   methods: {
     handleChange(input) {
       this.date = moment(input, "YYYY-MM-DD").add(1, "days");

@@ -1,6 +1,5 @@
 <script>
 import moment from "moment";
-import Chart from "./Chart.vue";
 
 const monthUnix = 2678400;
 
@@ -10,7 +9,6 @@ const filterMonth = (items) => {
 
 export default {
   props: ["index", "input"],
-  components: { Chart },
 
   data() {
     return {
