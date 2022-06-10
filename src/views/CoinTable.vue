@@ -11,7 +11,6 @@ export default {
   },
   data() {
     return {
-      info: "null",
       coins: ["bitcoin", "dacxi", "ethereum", "cosmos", "terra-luna-2"],
       details: [],
       data: [],
@@ -36,7 +35,6 @@ export default {
     this.getApi();
 
     setInterval(() => {
-      console.log("foi");
       this.getApi();
     }, 30000);
   },

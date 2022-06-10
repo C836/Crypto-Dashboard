@@ -7,7 +7,7 @@ import moment from "moment";
 const defaultDate = new window.Date().getTime();
 
 export default {
-  props: ["coin", "index", "data", "dailyData"],
+  props: ["coin", "index"],
   data() {
     return {
       date: defaultDate,
