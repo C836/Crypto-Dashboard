@@ -3,19 +3,14 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "start": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@syncfusion/ej2-base": "^20.1.57",
-    "@syncfusion/ej2-vue-charts": "^20.1.57",
-    "chart.js": "^3.8.0",
     "moment": "^2.29.3",
     "tw-elements": "^1.0.0-alpha12",
-    "vue": "^3.2.25",
-    "vue-chartjs": "^4.1.1",
-    "vue-chartkick": "^1.1.0"
+    "vue": "^3.2.25"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.3",
