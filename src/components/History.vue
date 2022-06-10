@@ -45,7 +45,7 @@ export default {
 
 <template>
   <section v-if="history.prices.length">
-    <Chart :index="index" :history="history.prices" />
+    <!-- <Chart :index="index" :history="history.prices" /> -->
     <table class="text-left max-w-5xl w-full h-auto mt-10 text-text bg-darker">
       <thead>
         <tr class="text-sm">
@@ -60,8 +60,8 @@ export default {
         </tr>
       </thead>
       <tbody v-for="index in 30" class="bg-darker text-lg">
-        <tr class="bg-dark border-2 border-y-4 border-darker relative h-14">
-          <td class="text-center text-base w-20">
+        <tr class="border-2 border-y-8 border-darker relative h-14" :class=" index % 2 ? 'bg-dark' : 'bg-light'">
+          <td class="text-center text-base w-25">
             <!-- TODO: FORMATAR EM FUNÇÃO DATA -->
 
             <p>

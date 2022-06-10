@@ -7,14 +7,14 @@ module.exports = {
       },
     },
     colors: {
+      light: "#353535",
       dark: "#292929",
       darker: "#1d1d1d",
       darkest: "#121212",
 
       text: "#dddddd",
       gray: "#888888",
-      blue: "#03dac6",
-      purple: "#c38fff",
+      blue: "#00479e",
 
       green: "#27FF36",
       red: "#FF2F2F"
