@@ -9,7 +9,7 @@ import { Filler } from "chart.js";
 
 export default {
   name: "Chart",
-  props: ["index", "data", "dailyData"],
+  props: ["date", "index", "data", "dailyData"],
   setup(props) {
     const { index, data, dailyData } = props;
 
