@@ -1,5 +1,5 @@
 <script>
-import CoinTable from "./components/CoinTable.vue";
+import CoinTable from "./views/CoinTable.vue";
 import Acordion from "./components/Details.vue";
 
 export default {
@@ -12,7 +12,7 @@ export default {
 
 <template>
   <div class="w-full h-full p-5">
-    <main class="flex justify-center">
+    <main class="flex flex-col items-center">
       <CoinTable />
     </main>
   </div>
