@@ -17,15 +17,28 @@ export default {
       arrows: [arrowSlider, arrowup, arrowdown],
     };
   },
+
+  methods: {
+    getApi: function () {
+      const coins = ["bitcoin", "dacxi", "ethereum", "cosmos", "terra-luna-2"];
+      this.data.length = 0
+      coins.map((coins) => {
+        fetch(
+          `https://api.coingecko.com/api/v3/coins/markets?vs_currency=brl&ids=${coins}&order=market_cap_desc&per_page=100&page=1&sparkline=false`
+        )
+          .then((response) => response.json())
+          .then((response) => this.data.push(response));
+      });
+    },
+  },
+
   created() {
-    const coins = ["bitcoin", "dacxi", "ethereum", "cosmos", "terra-luna-2"];
-    coins.map((coins) => {
-      fetch(
-        `https://api.coingecko.com/api/v3/coins/markets?vs_currency=brl&ids=${coins}&order=market_cap_desc&per_page=100&page=1&sparkline=false`
-      )
-        .then((response) => response.json())
-        .then((response) => this.data.push(response));
-    });
+    this.getApi();
+
+    setInterval(() => {
+      console.log('foi')
+      this.getApi()
+    }, 30000);
   },
 };
 </script>
@@ -59,7 +72,9 @@ export default {
           </div>
         </td>
 
-        <td class="sm:table-cell hidden text-right">R$ {{ item[0].market_cap }}</td>
+        <td class="sm:table-cell hidden text-right">
+          R$ {{ item[0].market_cap }}
+        </td>
 
         <td class="text-right">R$ {{ item[0].current_price }}</td>
 
